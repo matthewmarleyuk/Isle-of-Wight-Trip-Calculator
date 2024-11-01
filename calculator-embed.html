@@ -1,0 +1,314 @@
+<!-- Isle of Wight Trip Calculator -->
+<div id="iow-calculator" class="calculator-wrapper">
+  <style>
+    .calculator-wrapper {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .calculator-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-section, .summary-section {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      color: #1e3a8a;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+    }
+
+    .cost-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      color: #4b5563;
+      white-space: nowrap;
+    }
+
+    .cost-breakdown {
+      background: #eff6ff;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .total-cost {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 1rem;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .total-label {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1e3a8a;
+    }
+
+    .total-amount {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    .summary-details {
+      background: #f0fdf4;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: #047857;
+    }
+
+    .summary-details p {
+      margin: 0.25rem 0;
+      white-space: nowrap;
+    }
+
+    .ferry-button {
+      display: block;
+      width: 100%;
+      background: #16a34a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-align: center;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 1rem;
+      transition: background-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .ferry-button:hover {
+      background: #15803d;
+    }
+
+    @media (min-width: 1024px) {
+      .input-label {
+        font-size: 1rem;
+      }
+    }
+  </style>
+
+  <div class="calculator-grid">
+    <div class="form-section">
+      <h2 class="section-title">Basic Information</h2>
+      <div class="input-group">
+        <label class="input-label">Number of Adults</label>
+        <input type="number" min="0" class="input-field" id="adults" value="0">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Number of Kids</label>
+        <input type="number" min="0" class="input-field" id="kids" value="0">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Number of Nights Stay (£120 per night)</label>
+        <input type="number" min="0" class="input-field" id="nights" value="0">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Number of Restaurant Meals (£11.50 per adult, £6.50 per child)</label>
+        <input type="number" min="0" class="input-field" id="meals" value="0">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Days Using Public Transport (£2 per journey)</label>
+        <input type="number" min="0" class="input-field" id="transport" value="0">
+      </div>
+
+      <h2 class="section-title">Attractions</h2>
+      <div class="input-group">
+        <label class="input-label">Osborne House (£18.50 per adult, £11.10 per child)</label>
+        <input type="number" min="0" class="input-field" id="osborneHouse" value="0">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Carisbrooke Castle (£11.30 per adult, £6.80 per child)</label>
+        <input type="number" min="0" class="input-field" id="carisbrookeCastle" value="0">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Ventnor Botanic Garden (£11.50 per adult, £7.00 per child)</label>
+        <input type="number" min="0" class="input-field" id="ventnorBotanic" value="0">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Robin Hill Country Park (£15.00 per adult, £7.50 per child)</label>
+        <input type="number" min="0" class="input-field" id="robinHill" value="0">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Isle of Wight Steam Railway (£22.00 per adult, £11.00 per child)</label>
+        <input type="number" min="0" class="input-field" id="steamRailway" value="0">
+      </div>
+    </div>
+
+    <div class="summary-section">
+      <h2 class="section-title">Cost Summary</h2>
+      <div class="cost-breakdown">
+        <div class="cost-item">
+          <span>Accommodation</span>
+          <span id="accommodationCost">£0.00</span>
+        </div>
+        <div class="cost-item">
+          <span>Meals</span>
+          <span id="mealsCost">£0.00</span>
+        </div>
+        <div class="cost-item">
+          <span>Transport</span>
+          <span id="transportCost">£0.00</span>
+        </div>
+        <div class="cost-item">
+          <span>Attractions</span>
+          <span id="attractionsCost">£0.00</span>
+        </div>
+      </div>
+
+      <div class="total-cost">
+        <span class="total-label">Total Cost</span>
+        <span class="total-amount" id="totalCost">£0.00</span>
+      </div>
+
+      <div id="summaryDetails" class="summary-details" style="display: none;">
+        <p id="peopleSummary">✓ Your trip is planned for 0 people</p>
+        <p id="nightsSummary">✓ 0 nights of accommodation</p>
+        <p id="mealsSummary" style="display: none;">✓ 0 meals included</p>
+        <p id="attractionsSummary" style="display: none;">✓ Attraction tickets included</p>
+      </div>
+
+      <a href="https://www.wightlink.co.uk/book/" target="_blank" rel="noopener noreferrer" class="ferry-button">
+        Book Ferry Tickets
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const COSTS = {
+      NIGHTLY_STAY: 120,
+      MEAL_ADULT: 11.50,
+      MEAL_CHILD: 6.50,
+      TRANSPORT: 2,
+      ATTRACTIONS: {
+        OSBORNE_HOUSE: { adult: 18.50, child: 11.10 },
+        CARISBROOKE_CASTLE: { adult: 11.30, child: 6.80 },
+        VENTNOR_BOTANIC: { adult: 11.50, child: 7.00 },
+        ROBIN_HILL: { adult: 15.00, child: 7.50 },
+        STEAM_RAILWAY: { adult: 22.00, child: 11.00 }
+      }
+    };
+
+    function calculateAttractionCost(adults, kids, tickets, adultPrice, childPrice) {
+      const adultTickets = Math.min(adults, tickets);
+      const childTickets = Math.min(kids, tickets - adultTickets);
+      return (adultTickets * adultPrice) + (childTickets * childPrice);
+    }
+
+    function updateCalculations() {
+      const adults = parseInt(document.getElementById('adults').value) || 0;
+      const kids = parseInt(document.getElementById('kids').value) || 0;
+      const nights = parseInt(document.getElementById('nights').value) || 0;
+      const meals = parseInt(document.getElementById('meals').value) || 0;
+      const transport = parseInt(document.getElementById('transport').value) || 0;
+      
+      const osborneHouse = parseInt(document.getElementById('osborneHouse').value) || 0;
+      const carisbrookeCastle = parseInt(document.getElementById('carisbrookeCastle').value) || 0;
+      const ventnorBotanic = parseInt(document.getElementById('ventnorBotanic').value) || 0;
+      const robinHill = parseInt(document.getElementById('robinHill').value) || 0;
+      const steamRailway = parseInt(document.getElementById('steamRailway').value) || 0;
+
+      // Calculate costs
+      const accommodation = nights * COSTS.NIGHTLY_STAY;
+      const mealsCost = meals * ((adults * COSTS.MEAL_ADULT) + (kids * COSTS.MEAL_CHILD));
+      const transportCost = transport * COSTS.TRANSPORT;
+
+      const attractionsCost = 
+        calculateAttractionCost(adults, kids, osborneHouse, COSTS.ATTRACTIONS.OSBORNE_HOUSE.adult, COSTS.ATTRACTIONS.OSBORNE_HOUSE.child) +
+        calculateAttractionCost(adults, kids, carisbrookeCastle, COSTS.ATTRACTIONS.CARISBROOKE_CASTLE.adult, COSTS.ATTRACTIONS.CARISBROOKE_CASTLE.child) +
+        calculateAttractionCost(adults, kids, ventnorBotanic, COSTS.ATTRACTIONS.VENTNOR_BOTANIC.adult, COSTS.ATTRACTIONS.VENTNOR_BOTANIC.child) +
+        calculateAttractionCost(adults, kids, robinHill, COSTS.ATTRACTIONS.ROBIN_HILL.adult, COSTS.ATTRACTIONS.ROBIN_HILL.child) +
+        calculateAttractionCost(adults, kids, steamRailway, COSTS.ATTRACTIONS.STEAM_RAILWAY.adult, COSTS.ATTRACTIONS.STEAM_RAILWAY.child);
+
+      const totalCost = accommodation + mealsCost + transportCost + attractionsCost;
+
+      // Update display
+      document.getElementById('accommodationCost').textContent = `£${accommodation.toFixed(2)}`;
+      document.getElementById('mealsCost').textContent = `£${mealsCost.toFixed(2)}`;
+      document.getElementById('transportCost').textContent = `£${transportCost.toFixed(2)}`;
+      document.getElementById('attractionsCost').textContent = `£${attractionsCost.toFixed(2)}`;
+      document.getElementById('totalCost').textContent = `£${totalCost.toFixed(2)}`;
+
+      // Update summary
+      const summaryDetails = document.getElementById('summaryDetails');
+      const mealsSummary = document.getElementById('mealsSummary');
+      const attractionsSummary = document.getElementById('attractionsSummary');
+
+      if (totalCost > 0) {
+        summaryDetails.style.display = 'block';
+        document.getElementById('peopleSummary').textContent = `✓ Your trip is planned for ${adults + kids} people`;
+        document.getElementById('nightsSummary').textContent = `✓ ${nights} nights of accommodation`;
+        
+        if (meals > 0) {
+          mealsSummary.style.display = 'block';
+          mealsSummary.textContent = `✓ ${meals} meals included`;
+        } else {
+          mealsSummary.style.display = 'none';
+        }
+
+        if (osborneHouse + carisbrookeCastle + ventnorBotanic + robinHill + steamRailway > 0) {
+          attractionsSummary.style.display = 'block';
+        } else {
+          attractionsSummary.style.display = 'none';
+        }
+      } else {
+        summaryDetails.style.display = 'none';
+      }
+    }
+
+    // Add event listeners to all input fields
+    document.querySelectorAll('.input-field').forEach(input => {
+      input.addEventListener('input', updateCalculations);
+    });
+
+    // Initial calculation
+    updateCalculations();
+  </script>
+</div>
